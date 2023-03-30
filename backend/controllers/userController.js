@@ -7,9 +7,10 @@ const userController = {
         res.json(user)
     },
 
-    signup_post: async  (req, res) => {
+    signup_post: async (req, res) => {
         try {
-            const user = await User.create(req.body)
+            const { userName, email, password } = req.body;
+            const user = await User.create({ userName, email, password });
             res.status(201).json(user);
         } catch (error) {
             throw error
