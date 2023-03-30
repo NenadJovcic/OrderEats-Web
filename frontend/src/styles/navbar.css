@@ -1,0 +1,17 @@
+.nav-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 100%;
+    min-height: 40px;
+
+}
+
+.nav-half{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-width: 45%;
+    min-height: 40px;
+    
+}
