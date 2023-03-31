@@ -19,7 +19,16 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isRestaurant: {
+        type: Boolean,
+        default: false
     }
+
 });
 
 const User = mongoose.model('User', userSchema);
