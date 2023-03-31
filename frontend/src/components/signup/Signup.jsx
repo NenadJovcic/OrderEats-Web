@@ -9,7 +9,7 @@ const [email, setEmail] = useState("");
 
 function handleSignup() {
  axios
-    .post("/users/signup", {
+    .post("http://localhost:3333/users/signup", {
       userName: userName,
       email: email,
       password: password,
@@ -26,14 +26,14 @@ function handleSignup() {
     <>
       <form className="signup-form">
         <h2>Signup</h2>
-        <label htmlFor="userName"></label>
+        <label htmlFor="userName">Username</label>
         <input onChange={(e) => {setUserName(e.target.value)}}  type="text" required id="userName" />
-        <label htmlFor="email"></label>
+        <label htmlFor="email">Email</label>
         <input onChange={(e) => {setEmail(e.target.value)}}  type="email" required id="email" />
-        <label htmlFor="password"></label>
+        <label htmlFor="password">Password</label>
         <input onChange={(e) => {setPassword(e.target.value)}}  type="text" required id="password" />
         <button className="submit" onClick={() => {handleSignup()}}>Submit</button>
-      </form>
+        </form>
     </>
   );
 };

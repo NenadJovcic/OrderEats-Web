@@ -1,7 +1,57 @@
-.signup-form{
+/* .signup-form{
     display: flex;
     justify-content: center;
     align-items: flex-start;
     width: 30%;
     flex-direction: column;
-}
+} */
+
+/* Style the form container */
+.signup-form {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  /* Style the form header */
+  .signup-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Style the form labels */
+  .signup-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Style the form inputs */
+  .signup-form input[type="text"],
+  .signup-form input[type="email"],
+  .signup-form input[type="password"] {
+    width: 380px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style the form button */
+  .signup-form button.submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-form button.submit:hover {
+    background-color: #0062cc;
+  }
+  
