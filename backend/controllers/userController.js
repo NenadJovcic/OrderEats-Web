@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 
 
 
-export const signup_get = async (req, res) => {
+export const test_get = async (req, res) => {
     const user = await User.find();
     res.json(user)
 }
@@ -28,4 +28,27 @@ export const signup_post = async (req, res) => {
         res.status(201).json(user);
 
     }
+}
+
+
+export const login_post = async (req, res) => {
+
+    const { email, password } = req.body;
+    const user = await User.findOne({ email: email })
+    if (!user) {
+        res.send("Invalid email or password")
+    } else {
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (passwordMatch) {
+            res.status(201).json({ user: user._id });
+            console.log('user logged in')
+        } else {
+            res.send("Invalid email or password");
+        }
+    }
+
+}
+
+export const user_delete = async (req, res) => {
+    await User.deleteMany({})
 }
