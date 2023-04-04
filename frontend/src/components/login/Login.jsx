@@ -5,25 +5,30 @@ import axios from "axios";
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(false)
+  const oneDay = 24 * 60 * 60 * 1000;
+
+
 
   async function handleLogin() {
     await axios
       .post("http://localhost:3333/users/login", {
         email: email,
         password: password,
+
       })
       .then((res) => {
-        if (res.status === 200) {
-          setError(res.data);
-        } else {
-          setError(false);
-          location.assign("/");
-        }
+
+        localStorage.setItem('auth-token', res.data);
+        setTimeout(() => {
+          localStorage.removeItem('auth-token')
+        }, oneDay);
+        location.assign('/')
       })
       .catch((error) => {
-        console.log(error);
-      });
+        console.log(error)
+        setError(error.response.data.message)
+      })
   }
 
   return (
@@ -64,6 +69,7 @@ const Login = () => {
           Submit
         </button>
         {error ? <h3>{error}</h3> : null}
+
       </div>
     </>
   );
