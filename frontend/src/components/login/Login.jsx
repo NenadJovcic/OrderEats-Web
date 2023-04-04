@@ -23,6 +23,7 @@ const Login = () => {
         setTimeout(() => {
           localStorage.removeItem('auth-token')
         }, oneDay);
+        location.assign('/')
       })
       .catch((error) => {
         console.log(error)
