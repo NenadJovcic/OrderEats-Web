@@ -39,7 +39,7 @@
 }
 
 /* Style the form button */
-.login-form button.submit {
+.login-form button.login-submit {
   display: block;
   width: 100%;
   padding: 10px;
@@ -51,6 +51,6 @@
   transition: background-color 0.3s ease;
 }
 
-.login-form button.submit:hover {
+.login-form button.login-submit:hover {
   background-color: #0062cc;
 }

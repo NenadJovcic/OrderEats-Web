@@ -1,6 +1,6 @@
 import "../../styles/login.css";
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
 
 const Login = () => {
   const [password, setPassword] = useState("");
@@ -34,11 +34,39 @@ const Login = () => {
     <>
       <div className="login-form">
         <h2>Login</h2>
-        <label htmlFor="email">Email</label>
-        <input onChange={(e) => { setEmail(e.target.value) }} style={{ outline: error ? "1px solid red" : null }} type="email" required id="email" />
-        <label htmlFor="password">Password</label>
-        <input onChange={(e) => { setPassword(e.target.value) }} style={{ outline: error ? "1px solid red" : null }} type="password" required id="password" />
-        <button disabled={email.length < 1 || password < 1 ? true : false} style={{ backgroundColor: email.length < 1 || password < 1 ? "#acacac" : null }} className="submit" onClick={() => { handleLogin() }}>Submit</button>
+        <label htmlFor="login-email">Email</label>
+        <input
+          onChange={(e) => {
+            setEmail(e.target.value);
+          }}
+          style={{ outline: error ? "1px solid red" : null }}
+          type="email"
+          required
+          id="login-email"
+        />
+        <label htmlFor="login-password">Password</label>
+        <input
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
+          style={{ outline: error ? "1px solid red" : null }}
+          type="password"
+          required
+          id="login-password"
+        />
+        <button
+          disabled={email.length < 1 || password < 1 ? true : false}
+          style={{
+            backgroundColor:
+              email.length < 1 || password < 1 ? "#acacac" : null,
+          }}
+          className="login-submit"
+          onClick={() => {
+            handleLogin();
+          }}
+        >
+          Submit
+        </button>
         {error ? <h3>{error}</h3> : null}
 
       </div>
