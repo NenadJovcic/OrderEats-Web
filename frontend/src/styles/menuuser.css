@@ -1,0 +1,20 @@
+.artikel-container {
+    display: flex;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.info {
+    padding: 10px;
+    text-align: center;
+    font-size: medium;
+}
+
+.images {
+    width: 100%;
+    max-height: 150px;
+    max-width: 150px;
+    
+    
+  }

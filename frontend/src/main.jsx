@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import Login from "./components/login/Login.jsx"
 import Signup from './components/signup/Signup'
-import MenuUser from './components/menuuser/MenuUser'
+import {MenuUser} from './components/menuuser/MenuUser.jsx'
 import './index.css'
 import {
   createBrowserRouter,
