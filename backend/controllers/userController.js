@@ -1,5 +1,8 @@
 import User from "../models/userSchema.js"
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 
@@ -40,8 +43,10 @@ export const login_post = async (req, res) => {
     } else {
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (passwordMatch) {
-            res.status(201).json({ user: user._id });
-            console.log('user logged in')
+
+            const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, { expiresIn: '1d' })
+            res.status(200).header('auth-token', token).send()
+
         } else {
             res.send("Invalid email or password");
         }
