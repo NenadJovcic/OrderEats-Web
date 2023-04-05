@@ -1,5 +1,8 @@
 import User from "../models/userSchema.js"
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 
@@ -36,14 +39,19 @@ export const login_post = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email: email })
     if (!user) {
-        res.send("Invalid email or password")
+
+        res.status(400).json({ message: "Invalid email or password" })
     } else {
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (passwordMatch) {
-            res.status(201).json({ user: user._id });
-            console.log('user logged in')
+            console.log(user);
+
+
+            const token = jwt.sign({ _id: user._id, admin: user.isAdmin }, process.env.TOKEN_SECRET, { expiresIn: '1d' })
+            res.status(201).header('auth-token', token).send(token)
+
         } else {
-            res.send("Invalid email or password");
+            res.status(400).json({ message: "Invalid email or password" })
         }
     }
 
