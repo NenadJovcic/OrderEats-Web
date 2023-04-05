@@ -25,6 +25,8 @@
   cursor: pointer;
   color: white;
   text-decoration: none;
+  background-color: transparent;
+  border: none;
 }
 
 .nav-bar .nav-half .nav-button:hover {
