@@ -1,10 +1,12 @@
 import "../../styles/login.css";
 import { useState } from "react";
 import axios from "axios";
+import LoginForm from "./LoginForm";
 
 const Login = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
   const [error, setError] = useState(false)
   const oneDay = 24 * 60 * 60 * 1000;
 
@@ -33,44 +35,14 @@ const Login = () => {
 
   return (
     <>
-      <div className="login-form">
-        <h2>Login</h2>
-        <label htmlFor="login-email">Email</label>
-        <input
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          style={{ outline: error ? "1px solid red" : null }}
-          type="email"
-          required
-          id="login-email"
-        />
-        <label htmlFor="login-password">Password</label>
-        <input
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          style={{ outline: error ? "1px solid red" : null }}
-          type="password"
-          required
-          id="login-password"
-        />
-        <button
-          disabled={email.length < 1 || password < 1 ? true : false}
-          style={{
-            backgroundColor:
-              email.length < 1 || password < 1 ? "#acacac" : null,
-          }}
-          className="login-submit"
-          onClick={() => {
-            handleLogin();
-          }}
-        >
-          Submit
-        </button>
-        {error ? <h3>{error}</h3> : null}
+      <LoginForm
+        setEmail={setEmail}
+        email={email}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        error={error}
+      />
 
-      </div>
     </>
   );
 };
