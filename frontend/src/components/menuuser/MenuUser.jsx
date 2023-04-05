@@ -13,7 +13,7 @@ export function MenuUser() {
     <>
     {foods.map((food) => {
   return (
-    <div className="artikel">
+    <div className="meny">
       <div className="artikel-container">
         <div className="artikel-img">
           <img className="images" src={food.img} alt={food.name}/>
