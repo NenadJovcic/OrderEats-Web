@@ -30,7 +30,7 @@ export const signup_post = async (req, res) => {
 };
 
 export const login_post = async (req, res) => {
-  
+
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
@@ -38,14 +38,15 @@ export const login_post = async (req, res) => {
   } else {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      console.log(user);
+      
 
       const token = jwt.sign(
         { _id: user._id, admin: user.isAdmin },
-        process.env.TOKEN_SECRET,
+        process.env.TOKEN_SECRET || "secret",
         { expiresIn: "1d" }
       );
-      res.status(201).header("auth-token", token).send(token);
+      // console.log(req.headers.authorization.split(" ")[1]);
+      res.status(201).json({ token: token, user: user });
     } else {
       res.status(400).json({ message: "Invalid email or password" });
     }
@@ -61,12 +62,19 @@ export const user_delete = async (req, res) => {
 
 //? Protect routes from unauthorized access and restrict access to certain roles (admin)
 export const protect = async (req, res, next) => {
-  const token = req.header("auth-token");
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  console.log(token);
   if (!token) {
     res.status(401).json({ message: "Access denied" });
   } else {
     try {
-      const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+      const verified = jwt.verify(token, process.env.TOKEN_SECRET || "secret");
       req.user = verified;
       next();
     } catch (error) {
@@ -77,13 +85,11 @@ export const protect = async (req, res, next) => {
 
 
 //? Restrict access to certain roles (admin)
-export const restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.isAdmin === false)) {
-      res.status(403).json({ message: "You are not allowed to do this" });
-    } else {
-      next();
-    }
-  };
-};
+export const restrictToAdmin = async (req, res, next) => {
+  if (req.user.admin) {
+    next();
+  } else {
+    res.status(401).json({ message: "Access denied" });
+  }
+}
 
