@@ -7,12 +7,12 @@ const userSchema = new Schema({
 
     userName: {
         type: String,
-        unique: true,
+        unique: [true, 'Username already exists'],
         required: true,
     },
     email: {
         type: String,
-        unique: true,
+        unique: [true, 'Email already exists'],
         required: true,
         
     },
