@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
 import userRoutes from "./routes/userRoutes.js"
+import menuRoutes from "./routes/menuRouter.js"
 
 
 const app = express()
@@ -14,6 +15,7 @@ const db = "mongodb+srv://nenadhif:465289nj@kurs4projekt.ykrbwgz.mongodb.net/?re
 mongoose.connect(db).then(() => { console.log("db connected") }).catch((err) => { throw err })
 
 app.use("/users", userRoutes)
+app.use("/menu", menuRoutes)
 
 app.listen(PORT, () => { console.log(`App listening on port ${PORT}`) })
 

@@ -8,7 +8,7 @@ export function verifyToken(req, res, next) {
     }
     try {
 
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET)
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET || "secret")
         req.user = verified;
         next()
     } catch (err) {
