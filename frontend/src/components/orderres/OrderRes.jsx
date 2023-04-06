@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import MenuList from '../menuuser/MenuUser';
 
 const NewOrderForm = () => {
-  const [items, setItems] = useState('');
+  const [items, setItems] = useState([]);
   const [createdAt, setCreatedAt] = useState('');
+  const [menu, setMenu] = useState(null)
+
+  const [error, setError] = useState('')
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = { items, createdAt };
+    const data = { items };
     const authToken = localStorage.getItem('auth-token')
     const config = {
       headers: {
@@ -19,27 +23,66 @@ const NewOrderForm = () => {
       const response = await axios.post('http://localhost:3333/orders', data, config);
 
       console.log(response);
-      alert('Order created successfully');
-    } catch (error) {
-      console.error(error);
-      alert('There was an error creating the order');
+
+      const responseData = await response.data;
+      if (responseData) {
+        setError('')
+      }
+      console.log(responseData);
+      // setItems([]);
+      setMenu(responseData.data.items.join(', ')) // join items array with comma separator
+      setCreatedAt(responseData.data.createdAt);
+
+    } catch (err) {
+      // Handle network errors
+      const { error } = err.response.data
+
+      setError(error);
     }
   };
 
+  const handleItemChange = (index, value) => {
+    const newItems = [...items];
+    newItems[index] = value;
+    setItems(newItems);
+  };
+
+  const handleAddItem = () => {
+    setItems([...items, '']);
+  };
+
+  const handleRemoveItem = (index) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  };
+
+
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Items:
-        <input type="text" value={items} onChange={(e) => setItems(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Created At:
-        <input type="text" value={createdAt} onChange={(e) => setCreatedAt(e.target.value)} />
-      </label>
-      <br />
-      <button type="submit">Create Order</button>
-    </form>
+    <section>
+
+      <form onSubmit={handleSubmit}>
+        {items.map((item, index) => (
+          <div key={index}>
+            <label>
+              Item #{index + 1}:
+              <input style={{ width: '250px' }} type="text" value={item} onChange={(e) => handleItemChange(index, e.target.value)} />
+            </label>
+            {items.length > 1 && <button type="button" onClick={() => handleRemoveItem(index)}>Remove</button>}
+          </div>
+        ))}
+        <button type="button" onClick={handleAddItem}>Add Item</button>
+        <button type="submit">Create Order</button>
+        <div>{error}</div>
+        <div> {menu} </div>
+        <div> {createdAt} </div>
+      </form>
+
+      <div>
+        <MenuList />
+      </div>
+    </section>
   );
 };
 
