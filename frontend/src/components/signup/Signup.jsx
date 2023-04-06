@@ -70,7 +70,7 @@ const Signup = () => {
           required
           id="signup-password"
         />
-        <label htmlFor="signup-password-again">Password Again</label>
+        <label htmlFor="signup-password-again">Re-enter Password</label>
         <input
           onChange={(e) => {
             setPasswordAgain(e.target.value);

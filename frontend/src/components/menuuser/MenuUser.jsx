@@ -16,6 +16,40 @@ export function MenuUser() {
     }
   }
 
+  function changeNumber(action, id) {
+    const newOrderbox = orderbox.map((item) => {
+      let quantity = item.quantity;
+
+      if (item.id === id) {
+        if (action === 'minus') {
+          quantity--;
+          if (quantity === 0) {
+            // Remove item from orderbox if quantity is 0
+            return undefined;
+          }
+        } else if (action === 'plus') {
+          quantity++;
+        }
+      }
+
+      return {
+        ...item,
+        quantity,
+      };
+    }).filter(item => item !== undefined);
+
+    setOrderbox(newOrderbox);
+  }
+
+  function subTotal() {
+    let totalPrice = 0, totalQuantity = 0;
+    orderbox.forEach((item) => {
+      totalPrice += item.price * item.quantity;
+      totalQuantity += item.quantity;
+    });
+    return { totalPrice, totalQuantity };
+  }
+
   return (
     <>
       <div className='container'>
@@ -50,10 +84,17 @@ export function MenuUser() {
                   <img className='images' src={item.img} alt={item.name} />
                 </div>
                 <div className='orderitem-name'>{item.name}</div>
-                <div className='orderitem-quantity'>{item.quantity}</div>
-                <div className='orderitem-price'>{item.price}</div>
+                <div className='orderitem-quantity'>Antal {item.quantity}</div>
+                <div className='numberBtn' onClick={() => changeNumber('minus', item.id)}>-</div>
+                <div className='orderitem-price'>Pris {item.price} kr</div>
+                <div className='numberBtn' onClick={() => changeNumber('plus', item.id)}>+</div>
               </div>
             ))}
+          </div>
+          <div className='totalprice'>
+            <div className='subTotal'>Subtotal:</div>
+            <div className='orderitem-price'>Antal: {subTotal().totalQuantity}</div>
+            <div className='orderitem-price'>Pris: {subTotal().totalPrice} kr</div>
           </div>
           <button className='orderbutton'>Checkout Order</button>
         </div>

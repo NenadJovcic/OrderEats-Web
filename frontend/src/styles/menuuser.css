@@ -28,6 +28,7 @@
     margin: 10px;
     padding-top: 10px;
     padding-left: 10px;
+    width: 320px;
 }
 
 .artikel-container {
@@ -45,15 +46,15 @@
     min-width: 180px;
     min-height: 80px;
     text-align: center;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     font-size: small;
     border-radius: 20px;
     box-shadow: 0px 10px 20px #1687d933;
 }
 
 .images {
-    min-height:50px;
-    max-height:120px;
+    min-height: 50px;
+    max-height: 120px;
     min-width: 90px;
     max-width: 100px;
 }
@@ -65,21 +66,36 @@
 
 .icon:active {
     color: #7b38d8;
-  }
+}
 
 .orderbox {
     background-color: white;
     width: 95%;
-    min-height: 75vh;
-    max-height: 75vh; /* Set a max height for the orderbox */
+    min-height: 82%;
+    max-height: 82%;
     align-items: center;
-    justify-content: start; /* Center the orderbutton */
-    overflow-y: scroll; /* Make the orderbox scrollable when content overflows */
+    overflow-y: scroll;
+    /*display: flex;
+    background-color: white;
+    width: 95%;
+    min-height: 82%;
+    max-height: 82%;
+    align-items: center;
+    justify-content: start;
+    overflow-y: scroll;
     position: relative;
-    display: flex;
     flex-direction: column;
-    flex-basis: auto;
+    gap: 10px;
+    flex-basis: auto;*/
 }
+
+.orderbox .images {
+    min-height: 30px;
+    max-height: 80px;
+    min-width: 60px;
+    max-width: 90px;
+}
+
 .orderbox::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -92,7 +108,7 @@
 
 .orderbox::-webkit-scrollbar-thumb {
     background-color: #159e43;
- 
+
 }
 
 .orderbox::-webkit-scrollbar-thumb:hover {
@@ -101,7 +117,7 @@
 
 .orderbutton {
     display: block;
-    width: 88%;
+    width: 90%;
     padding: 10px;
     color: #fff;
     border: none;
@@ -111,19 +127,51 @@
     border-radius: 10px;
     margin: 10px;
 }
+
 .orderbutton:active {
     color: black;
-  }
+}
 
 .orderitem {
     display: flex;
-    justify-content: flex-start;
     align-items: center;
-    flex-direction: column;
-    column-gap: 10px;
-    padding: 10px;
+    flex-direction: row;
+    column-gap: 5px;
+    padding: px;
     text-align: center;
-    font-size: small;
-    border-radius: 20px;
-    font-family: 'Courier New', Courier, monospace;
+    font-size: 11px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.numberBtn {
+    display: flex;
+    align-items: center; /* center the contents vertically */
+    justify-content: center; /* center the contents horizontally */
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    width: 15px; /* set a fixed width value */
+    height: 15px;
+    border-radius: 50%; /* set the border radius to 50% to make it circular */
+    box-sizing: border-box; /* include padding and border in the specified width */
+    /* rest of your CSS rules */
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    padding: 9px; /* reduce padding to make the circle area smaller */
+    font-size: 16px;
+    margin: 9px 9px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+.numberBtn:active {
+    color: #7b38d8;
+}
+
+.totalprice {
+    display: flex;
+    padding: 20px;
+    justify-content: space-around;
+    color: white;
 }
