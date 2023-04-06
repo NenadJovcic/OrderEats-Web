@@ -15,7 +15,12 @@ export const menu_post = async (req, res) => {
 };
 
 export const menu_delete = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   await Menu.findByIdAndDelete(id);
   res.status(200).json({ message: "Menu deleted" });
+};
+export const menu_put = async (req, res) => {
+  const { id } = req.params;
+  await Menu.findByIdAndUpdate(id, req.body);
+  res.status(200).json({ message: "Menu Updated" });
 };

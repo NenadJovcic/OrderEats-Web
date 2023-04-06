@@ -61,27 +61,27 @@ export const user_delete = async (req, res) => {
 
 
 //? Protect routes from unauthorized access and restrict access to certain roles (admin)
-export const protect = async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith("Bearer")
-  ) {
-    token = req.headers.authorization.split(" ")[1];
-  }
-  console.log(token);
-  if (!token) {
-    res.status(401).json({ message: "Access denied" });
-  } else {
-    try {
-      const verified = jwt.verify(token, process.env.TOKEN_SECRET || "secret");
-      req.user = verified;
-      next();
-    } catch (error) {
-      res.status(400).json({ message: "Invalid token" });
-    }
-  }
-};
+// export const protect = async (req, res, next) => {
+//   let token;
+//   if (
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith("Bearer")
+//   ) {
+//     token = req.headers.authorization.split(" ")[1];
+//   }
+//   // console.log(token);
+//   if (!token) {
+//     res.status(401).json({ message: "Access denied" });
+//   } else {
+//     try {
+//       const verified = jwt.verify(token, process.env.TOKEN_SECRET || "secret");
+//       req.user = verified;
+//       next();
+//     } catch (error) {
+//       res.status(400).json({ message: "Invalid token" });
+//     }
+//   }
+// };
 
 
 //? Restrict access to certain roles (admin)

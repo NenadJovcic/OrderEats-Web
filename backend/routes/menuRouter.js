@@ -3,19 +3,16 @@ import {
   menu_get,
   menu_post,
   menu_delete,
+  menu_put
 } from "../controllers/menuController.js";
-import { protect, restrictToAdmin } from "../controllers/userController.js";
-import User from "../models/userSchema.js";
+import {  restrictToAdmin } from "../controllers/userController.js";
+import { verifyToken } from "../verifyToken.js";
+
 
 const menuRoutes = Router();
-// restrictTo(User.$where(i)) is a function that checks if the user is an admin or not
- menuRoutes.get(
-  "/",
-  protect,
-  restrictToAdmin,
-  menu_get
-);
-menuRoutes.post("/", protect, menu_post);
-menuRoutes.delete("/", menu_delete);
+menuRoutes.get("/", menu_get);
+menuRoutes.post("/", verifyToken, restrictToAdmin, menu_post);
+menuRoutes.delete("/:id", verifyToken, restrictToAdmin, menu_delete);
+menuRoutes.put("/:id", verifyToken, restrictToAdmin, menu_put);
 
 export default menuRoutes;
