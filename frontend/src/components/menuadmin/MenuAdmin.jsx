@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import "../../styles/menuadmin.css";
 
 const MenuAdmin = () => {
-  const [menu, setMenu] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
+  const [menu, setMenu] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26,
+  ]);
   const [currentItem, setCurrentItem] = useState(null);
 
   function handleMenuItem(item) {
