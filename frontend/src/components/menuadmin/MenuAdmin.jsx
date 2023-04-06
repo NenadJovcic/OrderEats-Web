@@ -21,6 +21,9 @@ const MenuAdmin = () => {
                   handleMenuItem(item);
                 }}
                 className="menuadmin-menu-item"
+                style={{
+                  outline: currentItem === item ? "3px solid #015513" : null,
+                }}
               >
                 <img
                   className="menuadmin-menu-item-image"
