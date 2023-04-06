@@ -38,13 +38,14 @@ export const login_post = async (req, res) => {
   } else {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      
+
 
       const token = jwt.sign(
         { _id: user._id, admin: user.isAdmin },
         process.env.TOKEN_SECRET || "secret",
         { expiresIn: "1d" }
       );
+      console.log(token)
       // console.log(req.headers.authorization.split(" ")[1]);
       res.status(201).json({ token: token, user: user });
     } else {
