@@ -79,7 +79,7 @@ const foods = [
 {
   id: 12,
   type: "Extra",
-  name: "Dippor",
+  name: "Dippa",
   price: "10",
   img: "./img/sauces.jpg", 
 },

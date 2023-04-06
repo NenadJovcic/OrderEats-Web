@@ -1,27 +1,129 @@
+.container {
+    top: 50px;
+    height: calc(100vh - 80px);
+    position: relative;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 12fr 3fr;
+}
+
+.left_side {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: wrap;
+    justify-content: space-between;
+    row-gap: 50px;
+    margin: 50px;
+}
+
+.right_side {
+    top: 20px;
+    position: relative;
+    min-height: 80vh;
+    max-height: 83vh;
+    border-radius: 10px;
+    background-color: #043e59;
+    grid-template-rows: auto;
+    margin: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
 .artikel-container {
-    width: 300px;
-    height:100px;
     display: flex;
-    display: flex;
+    flex-direction: row;
     justify-content: space-evenly;
-    align-items: flex-start;
-    margin: auto;
+    align-items: center;
 }
 
 .info:hover {
-    background-color: lightgrey;
+    background-color: rgb(240, 238, 238);
 }
 
 .info {
-    width: 24vh;
-    height:10vh;
-    padding: auto;
+    min-width: 180px;
+    min-height: 80px;
     text-align: center;
-    font-size: medium;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: small;
+    border-radius: 20px;
+    box-shadow: 0px 10px 20px #1687d933;
 }
 
 .images {
-    width: 180%;
-    max-height: 100px;
-    max-width: 80px;
+    min-height:50px;
+    max-height:120px;
+    min-width: 90px;
+    max-width: 100px;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: large;
+}
+
+.icon:active {
+    color: #7b38d8;
+  }
+
+.orderbox {
+    background-color: white;
+    width: 95%;
+    min-height: 75vh;
+    max-height: 75vh; /* Set a max height for the orderbox */
+    align-items: center;
+    justify-content: start; /* Center the orderbutton */
+    overflow-y: scroll; /* Make the orderbox scrollable when content overflows */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-basis: auto;
+}
+.orderbox::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.orderbox::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.orderbox::-webkit-scrollbar-thumb {
+    background-color: #159e43;
+ 
+}
+
+.orderbox::-webkit-scrollbar-thumb:hover {
+    background-color: #015513;
+}
+
+.orderbutton {
+    display: block;
+    width: 88%;
+    padding: 10px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #7b38d8;
+    border-radius: 10px;
+    margin: 10px;
+}
+.orderbutton:active {
+    color: black;
+  }
+
+.orderitem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    column-gap: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: small;
+    border-radius: 20px;
+    font-family: 'Courier New', Courier, monospace;
 }
