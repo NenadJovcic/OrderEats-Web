@@ -16,7 +16,7 @@ mongoose.connect(db).then(() => { console.log("db connected") }).catch((err) => 
 
 app.use("/users", userRoutes)
 app.use("/menu", menuRoutes)
-
+app.use('/orders', orderRoutes)
 app.listen(PORT, () => { console.log(`App listening on port ${PORT}`) })
 
 // app.use('/', router);
