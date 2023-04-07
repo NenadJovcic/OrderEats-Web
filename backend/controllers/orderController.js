@@ -1,5 +1,5 @@
 import Order from '../models/orderSchema.js'
-import jwt from 'jsonwebtoken';
+
 
 
 export const orders_get = async (req, res) => {
@@ -13,26 +13,16 @@ export const orders_get = async (req, res) => {
 };
 
 export const orders_post = async (req, res) => {
-    const { items } = req.body;
+    const { user, items } = req.body;
     try {
 
-        const token = req.headers['auth-token'];
-        if (token) {
-            const decoded = jwt.verify(token, process.env.TOKEN_SECRET || 'secret');
-            const userId = decoded._id;
+        const order = new Order({
+            user,
+            items,
+        });
 
-            const order = new Order({
-                user: userId,
-                items,
-            });
-
-            const newOrder = await order.save();
-
-
-            res.status(201).json({ success: true, data: newOrder });
-        } else {
-            res.status(403).json({ error: 'You have no token, please log in' })
-        }
+        const newOrder = await order.save();
+        res.status(201).json({ success: true, data: newOrder });
 
     } catch (error) {
         console.error(error.stack);
@@ -54,8 +44,14 @@ export const orders_delete = async (req, res) => {
     await Order.findByIdAndDelete(id);
     res.status(200).json({ message: "Order deleted" });
 };
-export const order_put = async (req, res) => {
+
+export const orders_getByOrdersId = async (req, res) => {
     const { id } = req.params;
-    await Order.findByIdAndUpdate(id, req.body);
-    res.status(200).json({ message: "Order Updated" });
+    const order = await Order.findById(id).populate('items')
+    res.status(200).json({ order });
+};
+export const orders_getByUserId = async (req, res) => {
+    const { id } = req.params;
+    const order = await Order.find({ user: id }).populate('items')
+    res.status(200).json({ result: order.length, order });
 };
