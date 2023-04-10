@@ -3,7 +3,7 @@ const foods = [
   id: 1,
   type: "Burger",
   name: "Cheeseburgare",
-  price: "25",
+  price: "35",
   img: "./img/cheeseB.jpg" 
 },
 {

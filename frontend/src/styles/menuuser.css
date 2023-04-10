@@ -12,7 +12,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     row-gap: 50px;
     margin: 50px;
 }
@@ -28,7 +28,7 @@
     margin: 10px;
     padding-top: 10px;
     padding-left: 10px;
-    width: 320px;
+    width: 380px;
 }
 
 .artikel-container {
@@ -46,10 +46,11 @@
     min-width: 180px;
     min-height: 80px;
     text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: small;
     border-radius: 20px;
     box-shadow: 0px 10px 20px #1687d933;
+    margin: 10px;
 }
 
 .images {
@@ -73,8 +74,13 @@
     width: 95%;
     min-height: 82%;
     max-height: 82%;
-    align-items: center;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow-y: scroll;
+    justify-content: flex-start;
     /*display: flex;
     background-color: white;
     width: 95%;
@@ -117,7 +123,7 @@
 
 .orderbutton {
     display: block;
-    width: 90%;
+    width: 92%;
     padding: 10px;
     color: #fff;
     border: none;
@@ -145,33 +151,73 @@
 
 .numberBtn {
     display: flex;
-    align-items: center; /* center the contents vertically */
-    justify-content: center; /* center the contents horizontally */
+    align-items: center;
+    /* center the contents vertically */
+    justify-content: center;
+    /* center the contents horizontally */
     font-size: 20px;
     cursor: pointer;
     background-color: #007bff;
     color: #fff;
-    width: 15px; /* set a fixed width value */
+    width: 15px;
+    /* set a fixed width value */
     height: 15px;
-    border-radius: 50%; /* set the border radius to 50% to make it circular */
-    box-sizing: border-box; /* include padding and border in the specified width */
+    border-radius: 50%;
+    /* set the border radius to 50% to make it circular */
+    box-sizing: border-box;
+    /* include padding and border in the specified width */
     /* rest of your CSS rules */
     background-color: #04AA6D;
     border: none;
     color: white;
-    padding: 9px; /* reduce padding to make the circle area smaller */
+    padding: 9px;
+    /* reduce padding to make the circle area smaller */
     font-size: 16px;
     margin: 9px 9px;
     transition: background-color 0.3s ease;
     text-align: center;
-  }
+}
+
 .numberBtn:active {
+    color: #7b38d8;
+}
+.removeBtn {
+    display: flex;
+    align-items: center;
+    /* center the contents vertically */
+    justify-content: center;
+    /* center the contents horizontally */
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    width: 15px;
+    /* set a fixed width value */
+    height: 15px;
+    border-radius: 50%;
+    /* set the border radius to 50% to make it circular */
+    box-sizing: border-box;
+    /* include padding and border in the specified width */
+    /* rest of your CSS rules */
+    background-color: #aa0404;
+    border: none;
+    color: white;
+    padding: 9px;
+    /* reduce padding to make the circle area smaller */
+    font-size: 16px;
+    margin: 9px 9px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.removeBtn:active {
     color: #7b38d8;
 }
 
 .totalprice {
     display: flex;
     padding: 20px;
+    margin-right: 10px;
     justify-content: space-around;
     color: white;
 }
