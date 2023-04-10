@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import "../../styles/orderres.css";
 import jwt_decode from "jwt-decode";
 
 const RestaurantOrders = () => {
   const [selectedOrders, setSelectedOrders] = useState([]);
+  const [orders, setOrders] = useState([])
 
   const orderList = [
     {
@@ -75,11 +76,25 @@ const RestaurantOrders = () => {
       })}
     </div>
   );
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetch("mongodb+srv://kris:<password>@cluster0.pj0nfnb.mongodb.net/test")
+      const jsonResult = await result.json()
+
+      setOrders(jsonResult)
+    }
+
+    fetchData();
+
+  }, [])
+
+
   return (
     <div>
       <h1 className="title-orders">Income Order List</h1>
       <OrderList orders={orderList} />
       <SelectedOrderList orders={orderList} />
+      <h3>{orders.items}</h3>
     </div>
   );
 };
