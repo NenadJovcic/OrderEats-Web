@@ -20,6 +20,20 @@
   border-bottom: 1px solid #ccc;
   border-radius: 20px;
 }
+.menuadmin-editor-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vw;
+}
+
+.menuadmin-editor-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1vh;
+}
 
 .menuadmin-editor {
   display: flex;
@@ -55,6 +69,7 @@
   outline: 1px solid #ccc;
   border-radius: 10px;
   gap: 1vw;
+  margin: 10px 0px;
 }
 
 .menuadmin-menu-item-image {
