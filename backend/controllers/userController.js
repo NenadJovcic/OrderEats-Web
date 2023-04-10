@@ -9,17 +9,16 @@ export const test_get = async (req, res) => {
   res.json(user);
 };
 
-
-
 //? Create new user and hash password before saving to database
 export const signup_post = async (req, res) => {
-  const { email, password, userName } = req.body;
+  const { email, password, userName, isAdmin } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = new User({
     email: email,
     password: hashedPassword,
     userName: userName,
+    isAdmin: isAdmin,
   });
   try {
     const savedUser = await user.save();
@@ -30,7 +29,6 @@ export const signup_post = async (req, res) => {
 };
 
 export const login_post = async (req, res) => {
-
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
@@ -38,8 +36,6 @@ export const login_post = async (req, res) => {
   } else {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
-      
-
       const token = jwt.sign(
         { _id: user._id, admin: user.isAdmin },
         process.env.TOKEN_SECRET || "secret",
@@ -56,9 +52,6 @@ export const login_post = async (req, res) => {
 export const user_delete = async (req, res) => {
   await User.deleteMany({});
 };
-
-
-
 
 //? Protect routes from unauthorized access and restrict access to certain roles (admin)
 // export const protect = async (req, res, next) => {
@@ -83,7 +76,6 @@ export const user_delete = async (req, res) => {
 //   }
 // };
 
-
 //? Restrict access to certain roles (admin)
 export const restrictToAdmin = async (req, res, next) => {
   if (req.user.admin) {
@@ -91,5 +83,4 @@ export const restrictToAdmin = async (req, res, next) => {
   } else {
     res.status(401).json({ message: "Access denied" });
   }
-}
-
+};

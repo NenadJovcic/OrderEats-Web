@@ -9,8 +9,6 @@ export const menu_post = async (req, res) => {
   const { name, price, photo } = req.body;
   const menu = new Menu({ name, price, photo });
   await menu.save();
-  console.log(menu);
-
   res.status(201).json(menu);
 };
 
