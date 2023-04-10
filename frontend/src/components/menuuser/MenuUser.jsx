@@ -1,17 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import foods from './foods';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import '../../styles/menuuser.css';
 /*const [menu, setMenu] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:3333/menu").then((res) => {
-      setMenu(res.data);
-    });
-  }); */
+  useEffect(() => {
+    axios.get("http://localhost:3333/menu").then((res) => {
+      setMenu(res.data);
+    });
+  }); */
 
 // function for the total menypage
 export function MenuUser() {
+  const [menu, setMenu] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:3333/menu").then((res) => {
+      setMenu(res.data);
+    });
+  });
   const [orderbox, setOrderbox] = useState([]);
 
 
@@ -26,7 +33,7 @@ export function MenuUser() {
     }
   }
 
-   // add or subtracts number quantity for an item with "-" or "+" in the orderbox, with map method
+  // add or subtracts number quantity for an item with "-" or "+" in the orderbox, with map method
   function changeNumber(action, id) {
     const newOrderbox = orderbox.map((item) => {
       let quantity = item.quantity;
@@ -71,12 +78,12 @@ export function MenuUser() {
     <>
       <div className='container'>
         <div className='left_side'>
-          {foods.map((food) => {
+          {menu.map((food) => {
             return (
-              <div className='meny' key={food.id}>
+              <div className='meny' key={food._id}>
                 <div className='artikel-container'>
                   <div className='artikel-img'>
-                    <img className='images' src={food.img} alt={food.name} />
+                    <img className='images' src={food.photo} alt={food.name} />
                   </div>
                   <div className='info'>
                     <h2>{food.name}</h2>
@@ -84,7 +91,7 @@ export function MenuUser() {
                       {food.price}
                       <small> :-</small>
                     </h2>
-                    <div className='addToOrder' onClick={() => addToOrder(food.id)}>
+                    <div className='addToOrder' onClick={() => addToOrder(food._id)}>
                       <FontAwesomeIcon icon={faPlus} className='icon' alt='add to order' />
                     </div>
                   </div>
@@ -96,16 +103,16 @@ export function MenuUser() {
         <div className='right_side'>
           <div className='orderbox'>
             {orderbox.map((item) => (
-              <div className='orderitem' key={item.id}>
+              <div className='orderitem' key={item._id}>
                 <div className='orderitem-img'>
-                  <img className='images' src={item.img} alt={item.name} />
+                  <img className='images' src={item.photo} alt={item.name} />
                 </div>
                 <div className='orderitem-name'>{item.name}</div>
                 <div className='orderitem-quantity'>Antal {item.quantity}</div>
-                <div className='numberBtn' onClick={() => changeNumber('minus', item.id)}>-</div>
+                <div className='numberBtn' onClick={() => changeNumber('minus', item._id)}>-</div>
                 <div className='orderitem-price'>Pris {item.price} kr</div>
-                <div className='numberBtn' onClick={() => changeNumber('plus', item.id)}>+</div>
-                <div className='removeBtn' onClick={() => removeBtn(item.id)}>x</div>
+                <div className='numberBtn' onClick={() => changeNumber('plus', item._id)}>+</div>
+                <div className='removeBtn' onClick={() => removeBtn(item._id)}>x</div>
               </div>
             ))}
           </div>
