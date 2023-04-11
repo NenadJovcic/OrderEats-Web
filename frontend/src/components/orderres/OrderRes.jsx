@@ -18,42 +18,47 @@ const RestaurantOrders = () => {
     fetchData();
   }, []);
 
-  const orderList = [
-    {
-      _id: 1,
-      items: [{name:"Pizza"},
-       {name:"Burger"}
-      ],
-      user: {userName:"Kristian",
-            email:"blabla@skola.se"},
-      total: 12.99,
-      ready:true
-    },
-  ];
+  // const orderList = [
+  //   {
+  //     _id: 1,
+  //     items: [{ name: "Pizza" },
+  //     { name: "Burger" }
+  //     ],
+  //     user: {
+  //       userName: "Kristian",
+  //       email: "blabla@skola.se"
+  //     },
+  //     total: 12.99,
+  //     ready: true
+  //   },
+  // ];
 
-  const Order = ({items, user, total, _id }) => (
-    <div className="order">
+  const Order = ({ items, user, total, _id, ready, }) => {
+
+
+    return <div className="order">
       <input
         type="checkbox"
         checked={selectedOrders.includes(_id)}
         onChange={() =>
-          selectedOrders.includes(_id)
-            ? setSelectedOrders(selectedOrders.filter((orderId) => orderId !== _id))
-            : setSelectedOrders([...selectedOrders, _id])
+          console.log(selectedOrders.includes(_id))
+
         }
       />
-      {items && items.map(item =><h3>{item.name}</h3> )}
+      {items && items.map(item => <h3>{item.name}</h3>)}
       <p>{user.userName}</p>
       <p>{user.email}</p>
       <p>{total}</p>
     </div>
-  );
+  }
+
+
 
   const OrderList = ({ orders }) => (
     <div className="order-list">
-      {orders.map(({ _id,ready, ...rest }) => {
-        if (!ready){
-          return <Order key={_id} {...rest} />
+      {orders.map(({ _id, ready, ...rest }) => {
+        if (!ready) {
+          return <Order key={_id} {...rest} _id={_id} ready={ready} />
         }
       }
       )}
@@ -63,16 +68,16 @@ const RestaurantOrders = () => {
   const SelectedOrderList = ({ orders }) => (
     <div className="selected-order-list">
       <h1 className="title-orders">Waiting orders to collect by drivers:</h1>
-      {orders.map(({ _id,ready, ...rest }) => {
+      {orders.map(({ _id, ready, ...rest }) => {
         if (ready) {
-          return <Order key={_id} {...rest} />
+          return <Order key={_id} {...rest} _id={_id} ready={ready} />
         }
       })}
     </div>
   );
 
   return (
-    
+
     <div>
       <h1 className="title-orders">Income Order List</h1>
       <OrderList orders={orders} />
