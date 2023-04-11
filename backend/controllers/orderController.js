@@ -4,7 +4,7 @@ import Order from '../models/orderSchema.js'
 
 export const orders_get = async (req, res) => {
     try {
-        const orders = await Order.find();
+        const orders = await Order.find().populate("items").populate("user").exec()
         res.status(200).json({ success: true, orders });
     } catch (error) {
         console.error(error);

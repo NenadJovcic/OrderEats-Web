@@ -1,104 +1,84 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../styles/orderres.css";
+import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 const RestaurantOrders = () => {
   const [selectedOrders, setSelectedOrders] = useState([]);
-  const [orders, setOrders] = useState([])
+
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:3333/orders");
+      console.log(result.data.orders)
+      setOrders(result.data.orders);
+    };
+
+    fetchData();
+  }, []);
 
   const orderList = [
     {
-      id: 1,
-      products: ["Pizza ", "Burger ", " Pasta"],
-      type: " Italian",
-      price: 12.99
+      _id: 1,
+      items: [{name:"Pizza"},
+       {name:"Burger"}
+      ],
+      user: {userName:"Kristian",
+            email:"blabla@skola.se"},
+      total: 12.99,
+      ready:true
     },
-    {
-      id: 2,
-      products: ["Burger ", "Pizza"],
-      type: " American",
-      price: 8.99
-    },
-    {
-      id: 3,
-      products: ["Sushi ", "Vasabi"],
-      type: " Japanese",
-      price: 15.99
-    },
-    {
-      id: 4,
-      products: ["Tacos ", " Cola"],
-      type: " Mexican",
-      price: 10.99
-    }
   ];
 
-  const Order = ({ products, type, price, id }) => (
+  const Order = ({items, user, total, _id }) => (
     <div className="order">
       <input
         type="checkbox"
-        checked={selectedOrders.includes(id)}
+        checked={selectedOrders.includes(_id)}
         onChange={() =>
-          selectedOrders.includes(id)
-            ? setSelectedOrders(selectedOrders.filter(orderId => orderId !== id))
-            : setSelectedOrders([...selectedOrders, id])
+          selectedOrders.includes(_id)
+            ? setSelectedOrders(selectedOrders.filter((orderId) => orderId !== _id))
+            : setSelectedOrders([...selectedOrders, _id])
         }
       />
-      <h3>{products}</h3>
-      <p>{type}</p>
-      <p>{`$${price.toFixed(2)}`}</p>
+      {items && items.map(item =><h3>{item.name}</h3> )}
+      <p>{user.userName}</p>
+      <p>{user.email}</p>
+      <p>{total}</p>
     </div>
   );
 
   const OrderList = ({ orders }) => (
     <div className="order-list">
-      {orders.map(({ id, ...rest }) => (
-        <Order key={id} id={id} {...rest} />
-      ))}
-      
+      {orders.map(({ _id,ready, ...rest }) => {
+        if (!ready){
+          return <Order key={_id} {...rest} />
+        }
+      }
+      )}
     </div>
   );
 
   const SelectedOrderList = ({ orders }) => (
     <div className="selected-order-list">
       <h1 className="title-orders">Waiting orders to collect by drivers:</h1>
-      {orders.map(({ id, products, type, price }) => {
-        if (selectedOrders.includes(id)) {
-          return (
-            <div className="selected-product" key={id}>
-              <h3>{products}</h3>
-              <p>{type}</p>
-              <p>{`$${price.toFixed(2)}`}</p>
-            </div>
-          );
+      {orders.map(({ _id,ready, ...rest }) => {
+        if (ready) {
+          return <Order key={_id} {...rest} />
         }
-        return null;
       })}
     </div>
   );
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch("mongodb+srv://kris:<password>@cluster0.pj0nfnb.mongodb.net/test")
-      const jsonResult = await result.json()
-
-      setOrders(jsonResult)
-    }
-
-    fetchData();
-
-  }, [])
-
 
   return (
+    
     <div>
       <h1 className="title-orders">Income Order List</h1>
-      <OrderList orders={orderList} />
-      <SelectedOrderList orders={orderList} />
-      <h3>{orders.items}</h3>
+      <OrderList orders={orders} />
+      <SelectedOrderList orders={orders} />
     </div>
   );
 };
 
 export default RestaurantOrders;
-
-
