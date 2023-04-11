@@ -6,49 +6,77 @@ import jwt_decode from "jwt-decode";
 const RestaurantOrders = () => {
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [update, setUpdate] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:3333/orders");
-      console.log(result.data.orders)
-      setOrders(result.data.orders);
+      await axios.get("http://localhost:3333/orders/ready").then((res) => {
+        setSelectedOrders(res.data.orders);
+      });
+      await axios.get("http://localhost:3333/orders/unready").then((res) => {
+        setOrders(res.data.orders);
+      });
     };
     fetchData();
-  }, []);
+  }, [update]);
 
-  const handleCheckboxClick = (_id, ready) => {
-    if (selectedOrders.includes(_id)) {
-      setSelectedOrders(selectedOrders.filter((id) => id !== _id));
+  async function handleCheckboxClick(id, ready) {
+    const token = localStorage.getItem("auth-token");
+    const config = {
+      headers: { auth_token: token },
+    };
+    await axios
+      .put(
+        `http://localhost:3333/orders/${id}`,
+        {
+          ready: !ready,
+        },
+        config
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    if (update === id) {
+      setUpdate(1);
     } else {
-      setSelectedOrders([...selectedOrders, _id]);
+      setUpdate(id);
     }
-
-    const updatedOrders = orders.map((order) =>
-      order._id === _id ? { ...order, ready: !ready } : order
-    );
-    setOrders(updatedOrders);
-  };
+  }
 
   const Order = ({ items, user, total, _id, ready }) => {
-    console.log(items)
     return (
       <div className="order" key={_id}>
         <input
           type="checkbox"
-          checked={selectedOrders.includes(_id)}
+          checked={ready}
           onChange={() => handleCheckboxClick(_id, ready)}
         />
-        {items && items.map((item, index) => {
-
-          const sum = items.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
-          return (<>
-            <h3 key={index}>{item.name}</h3>
-            {index === items.length - 1 ? <div>Total: {sum}</div> : null}
-          </>
-          )
-        })}
+        {items &&
+          items.map((item, index) => {
+            const sum = items.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.price,
+              0
+            );
+            return (
+              <>
+                <h3 key={index}>{item.name}</h3>
+                {index === items.length - 1 ? <div>Total: {sum}</div> : null}
+              </>
+            );
+          })}
         <p>{user.userName}</p>
-
+        {ready ? (
+          <button
+            onClick={() => {
+              handleCheckboxClick(_id, ready);
+            }}
+          >
+            Customer Picked it Up
+          </button>
+        ) : null}
       </div>
     );
   };
@@ -62,17 +90,18 @@ const RestaurantOrders = () => {
   );
 
   const SelectedOrderList = ({ orders }) => {
-    const readyOrders = orders.filter((order) => order.ready);
-    if (readyOrders.length === 0) {
+    if (selectedOrders.length === 0) {
       return <p>There are no ready orders yet.</p>;
     }
     return (
-      <div className="selected-order-list">
+      <>
         <h1 className="title-orders">Waiting orders to collect by drivers:</h1>
-        {readyOrders.map(({ _id, ready, ...rest }) => (
-          <Order {...rest} _id={_id} ready={ready} key={_id} />
-        ))}
-      </div>
+        <div className="order-list">
+          {selectedOrders.map(({ _id, ready, ...rest }) => (
+            <Order {...rest} _id={_id} ready={ready} key={_id} />
+          ))}
+        </div>
+      </>
     );
   };
 

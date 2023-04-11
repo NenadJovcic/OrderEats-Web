@@ -8,9 +8,12 @@ const MenuAdmin = () => {
   const [newItem, setNewItem] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:3333/menu").then((res) => {
-      setMenu(res.data);
-    });
+    const fetchdata = async () => {
+      await axios.get("http://localhost:3333/menu").then((res) => {
+        setMenu(res.data);
+      });
+    };
+    fetchdata();
   });
 
   function handleMenuItem(item) {
