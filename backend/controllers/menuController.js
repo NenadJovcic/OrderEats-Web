@@ -14,6 +14,12 @@ export const menu_post = async (req, res) => {
   res.status(201).json(menu);
 };
 
+export const menu_get_one = async (req, res) => {
+  const { id } = req.params;
+  const menu = await Menu.findById(id);
+  res.status(200).json(menu);
+};
+
 export const menu_delete = async (req, res) => {
   const { id } = req.params;
   await Menu.findByIdAndDelete(id);
