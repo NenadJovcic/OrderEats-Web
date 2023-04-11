@@ -5,7 +5,6 @@ import jwt_decode from "jwt-decode";
 
 const RestaurantOrders = () => {
   const [selectedOrders, setSelectedOrders] = useState([]);
-
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -14,70 +13,67 @@ const RestaurantOrders = () => {
       console.log(result.data.orders)
       setOrders(result.data.orders);
     };
-
     fetchData();
   }, []);
 
-  // const orderList = [
-  //   {
-  //     _id: 1,
-  //     items: [{ name: "Pizza" },
-  //     { name: "Burger" }
-  //     ],
-  //     user: {
-  //       userName: "Kristian",
-  //       email: "blabla@skola.se"
-  //     },
-  //     total: 12.99,
-  //     ready: true
-  //   },
-  // ];
+  const handleCheckboxClick = (_id, ready) => {
+    if (selectedOrders.includes(_id)) {
+      setSelectedOrders(selectedOrders.filter((id) => id !== _id));
+    } else {
+      setSelectedOrders([...selectedOrders, _id]);
+    }
+    
+    const updatedOrders = orders.map((order) =>
+      order._id === _id ? { ...order, ready: !ready } : order
+    );
+    setOrders(updatedOrders);
+  };
 
-  const Order = ({ items, user, total, _id, ready, }) => {
-
-
-    return <div className="order">
-      <input
-        type="checkbox"
-        checked={selectedOrders.includes(_id)}
-        onChange={() =>
-          console.log(selectedOrders.includes(_id))
-
-        }
-      />
-      {items && items.map(item => <h3>{item.name}</h3>)}
-      <p>{user.userName}</p>
-      <p>{user.email}</p>
-      <p>{total}</p>
-    </div>
-  }
-
-
+  const Order = ({ items, user, total, _id, ready }) => {
+    console.log(items)
+    return (
+      <div className="order" key={_id}>
+        <input
+          type="checkbox"
+          checked={selectedOrders.includes(_id)}
+          onChange={() => handleCheckboxClick(_id, ready)}
+        />
+        {items && items.map((item, index) => {<h3 key={index}>{item.name}</h3>
+        
+        })}
+        <p>{user.userName}</p>
+        
+        <p>{items.price}</p>
+        <p>{user.email}</p>
+        <p>{total}</p>
+      </div>
+    );
+  };
 
   const OrderList = ({ orders }) => (
     <div className="order-list">
-      {orders.map(({ _id, ready, ...rest }) => {
-        if (!ready) {
-          return <Order key={_id} {...rest} _id={_id} ready={ready} />
-        }
-      }
+      {orders.map(({ _id, ready, ...rest }) =>
+        !ready ? <Order {...rest} _id={_id} ready={ready} key={_id} /> : null
       )}
     </div>
   );
 
-  const SelectedOrderList = ({ orders }) => (
-    <div className="selected-order-list">
-      <h1 className="title-orders">Waiting orders to collect by drivers:</h1>
-      {orders.map(({ _id, ready, ...rest }) => {
-        if (ready) {
-          return <Order key={_id} {...rest} _id={_id} ready={ready} />
-        }
-      })}
-    </div>
-  );
+  const SelectedOrderList = ({ orders }) => {
+    const readyOrders = orders.filter((order) => order.ready);
+    if (readyOrders.length === 0) {
+      return <p>There are no ready orders yet.</p>;
+    }
+    return (
+      <div className="selected-order-list">
+        <h1 className="title-orders">Waiting orders to collect by drivers:</h1>
+        {readyOrders.map(({ _id, ready, ...rest }) => (
+          <Order {...rest} _id={_id} ready={ready} key={_id} />
+        ))}
+      </div>
+    );
+  };
 
   return (
-
     <div>
       <h1 className="title-orders">Income Order List</h1>
       <OrderList orders={orders} />
