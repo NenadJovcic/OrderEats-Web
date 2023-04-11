@@ -38,7 +38,6 @@ const OrderUser = () => {
     // return () => abortController.abort();
   }, []);
 
-  console.log(cartItems);
 
   return (
     <div className="order_container">
