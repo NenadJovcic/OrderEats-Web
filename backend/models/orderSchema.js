@@ -17,9 +17,10 @@ const orderSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    ready:{
-        type:Boolean,
-        default:false}
+    ready: {
+        type: Boolean,
+        default: false
+    }
 });
 
 const Order = mongoose.model('Order', orderSchema);
