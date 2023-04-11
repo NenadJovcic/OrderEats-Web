@@ -22,7 +22,7 @@ const RestaurantOrders = () => {
     } else {
       setSelectedOrders([...selectedOrders, _id]);
     }
-    
+
     const updatedOrders = orders.map((order) =>
       order._id === _id ? { ...order, ready: !ready } : order
     );
@@ -38,14 +38,17 @@ const RestaurantOrders = () => {
           checked={selectedOrders.includes(_id)}
           onChange={() => handleCheckboxClick(_id, ready)}
         />
-        {items && items.map((item, index) => {<h3 key={index}>{item.name}</h3>
-        
+        {items && items.map((item, index) => {
+
+          const sum = items.reduce((accumulator, currentValue) => accumulator + currentValue.price, 0);
+          return (<>
+            <h3 key={index}>{item.name}</h3>
+            {index === items.length - 1 ? <div>Total: {sum}</div> : null}
+          </>
+          )
         })}
         <p>{user.userName}</p>
-        
-        <p>{items.price}</p>
-        <p>{user.email}</p>
-        <p>{total}</p>
+
       </div>
     );
   };
