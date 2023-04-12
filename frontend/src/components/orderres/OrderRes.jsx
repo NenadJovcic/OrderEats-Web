@@ -48,7 +48,7 @@ const RestaurantOrders = () => {
 
   const Order = ({ items, user, total, _id, ready }) => {
     const itemQuantities = {};
-    let orderTotal = 0; // initialize order total to zero
+    let orderTotal = 0;
     
     items.forEach((item) => {
       if (item.name in itemQuantities) {
@@ -56,7 +56,7 @@ const RestaurantOrders = () => {
       } else {
         itemQuantities[item.name] = 1;
       }
-      orderTotal += item.price; // calculate total price for all items in the order
+      orderTotal += item.price;
     });
     
     return (
