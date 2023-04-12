@@ -33,6 +33,15 @@ const Navbar = () => {
         <div className="nav-half">
           {localStorage.getItem("auth-token") ? (
             <>
+              <NavLink className="nav-button" to="/orderres">
+                Income Orders
+              </NavLink>
+              <NavLink className="nav-button" to="/menuadmin">
+                Admin panel
+              </NavLink>
+              <NavLink className="nav-button" to="/orderuser">
+                Order User
+              </NavLink>
               <button className="nav-button" onClick={handleLogout}>
                 Logout
               </button>
