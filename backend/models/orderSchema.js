@@ -1,29 +1,28 @@
-import mongoose, { Schema } from 'mongoose';
-
-
+import mongoose, { Schema } from "mongoose";
 
 const orderSchema = new Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  items: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Menu",
+      required: true,
     },
-    items: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Menu',
-        required: true
-    }],
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    ready: {
-        type: Boolean,
-        default: false
-    }
+  ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  ready: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
-
-export default Order
+export default Order;

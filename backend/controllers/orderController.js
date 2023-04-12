@@ -28,6 +28,7 @@ export const orders_get_ready = async (req, res) => {
 
 export const orders_post = async (req, res) => {
   const { user, items } = req.body;
+
   try {
     const order = new Order({
       user,
@@ -81,4 +82,9 @@ export const orders_put = async (req, res) => {
   const { id } = req.params;
   await Order.findByIdAndUpdate(id, req.body);
   res.status(200).json({ message: "Order Updated" });
+};
+
+export const order_delete_all = async (req, res) => {
+  await Order.deleteMany();
+  res.status(200).json({ message: "Order deleted" });
 };
