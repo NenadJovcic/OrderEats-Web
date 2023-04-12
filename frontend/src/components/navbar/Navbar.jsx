@@ -3,14 +3,16 @@ import { NavLink } from "react-router-dom";
 
 
 const Navbar = () => {
-
+  
 
   function handleLogout() {
     localStorage.removeItem("auth-token");
     location.assign('/login')
 
   }
+  
   return (
+    
     <>
       <nav className="nav-bar">
         <div className="nav-half">

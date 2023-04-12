@@ -70,9 +70,9 @@ export const orders_getByOrdersId = async (req, res) => {
   res.status(200).json({ order });
 };
 export const orders_getByUserId = async (req, res) => {
-  const { id } = req.params;
-  const order = await Order.find({ user: id }).populate("items");
-  res.status(200).json({ result: order.length, order });
+    const { id } = req.params;
+    const order = await Order.find({ user: id }).populate('items').sort({ createdAt: -1 })
+    res.status(200).json({ result: order.length, order });
 };
 
 export const orders_put = async (req, res) => {
