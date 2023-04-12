@@ -15,6 +15,10 @@ const Navbar = () => {
     localStorage.removeItem("user");
     location.assign("/login");
   }
+
+
+
+
   return (
     <>
       <nav className="nav-bar">
@@ -40,7 +44,7 @@ const Navbar = () => {
                 Admin panel
               </NavLink>
               <NavLink className="nav-button" to="/orderuser">
-                Order User
+                Order user
               </NavLink>
               <button className="nav-button" onClick={handleLogout}>
                 Logout
@@ -72,3 +76,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+//how to import user collection from mongodb 

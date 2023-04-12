@@ -48,6 +48,18 @@ const RestaurantOrders = () => {
   }
 
   const Order = ({ items, user, total, _id, ready }) => {
+    const itemQuantities = {};
+    let orderTotal = 0;
+    
+    items.forEach((item) => {
+      if (item.name in itemQuantities) {
+        itemQuantities[item.name] += 1;
+      } else {
+        itemQuantities[item.name] = 1;
+      }
+      orderTotal += item.price;
+    });
+    
     return (
       <div className="order" key={_id}>
         <input
@@ -56,18 +68,23 @@ const RestaurantOrders = () => {
           onChange={() => handleCheckboxClick(_id, ready)}
         />
         {items &&
-          items.map((item, index) => {
+          Object.entries(itemQuantities).map(([name, quantity]) => {
             const sum = items.reduce(
-              (accumulator, currentValue) => accumulator + currentValue.price,
+              (accumulator, currentValue) =>
+                currentValue.name === name
+                  ? accumulator + currentValue.price
+                  : accumulator,
               0
             );
             return (
-              <>
-                <h3 key={index}>{item.name}</h3>
-                {index === items.length - 1 ? <div>Total: {sum}</div> : null}
-              </>
+              <div key={name}>
+                <h4>
+                  {name} x {quantity}
+                </h4>
+              </div>
             );
           })}
+        <h3>Order Total Price: {orderTotal}</h3> {/* display order total */}
         <p>{user.userName}</p>
         {ready ? (
           <button
@@ -81,6 +98,8 @@ const RestaurantOrders = () => {
       </div>
     );
   };
+  
+  
 
   const OrderList = ({ orders }) => (
     <div className="order-list">
