@@ -9,10 +9,9 @@ const OrderUser = () => {
     let user = localStorage.getItem("user");
     user = JSON.parse(user);
     const userId = user._id;
-    console.log(userId);
 
     // stop rendering the data after the first time
-    // const abortController = new AbortController();
+    const abortController = new AbortController();
     axios
       .get(`http://localhost:3333/orders/${userId}`, {
         headers: {
@@ -43,7 +42,7 @@ const OrderUser = () => {
 
         setCartItems(unique);
       });
-    // return () => abortController.abort();
+    return () => abortController.abort();
   }, []);
 
   return (
