@@ -17,8 +17,12 @@ const Login = () => {
         password: password,
       })
       .then((res) => {
-        localStorage.setItem("auth-token", res.data.token);
-        localStorage.setItem("user", res.data.user._id);
+
+
+        localStorage.setItem('auth-token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user));
+
+
         setTimeout(() => {
           localStorage.removeItem("auth-token");
           localStorage.removeItem("user");

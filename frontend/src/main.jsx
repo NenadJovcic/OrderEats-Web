@@ -1,20 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import Login from "./components/login/Login.jsx"
-import Signup from './components/signup/Signup'
-import MenuUser from './components/menuuser/MenuUser'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import Login from "./components/login/Login.jsx";
+import Signup from "./components/signup/Signup";
+import MenuUser from "./components/menuuser/MenuUser";
+import "./index.css";
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider,
 } from "react-router-dom";
-import OrderRes from './components/orderres/OrderRes'
-import MenuAdmin from './components/menuadmin/MenuAdmin'
-import OrderUser from "./components/orderuser/OrderUser"
-
+import OrderRes from "./components/orderres/OrderRes";
+import MenuAdmin from "./components/menuadmin/MenuAdmin";
+import OrderUser from "./components/orderuser/OrderUser";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,10 +26,10 @@ const router = createBrowserRouter(
       <Route path="/orderuser" element={<OrderUser />} />
     </Route>
   )
-)
+);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
