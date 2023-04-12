@@ -77,9 +77,8 @@ export function MenuUser() {
       headers: { auth_token: token },
     };
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log(orderbox);
     const items = orderbox.flatMap((obj) => {
-      return Array(orderbox.quantity).fill(obj);
+      return Array(obj.quantity).fill(obj);
     });
     console.log(items);
 
@@ -94,6 +93,7 @@ export function MenuUser() {
       )
       .then((res) => {
         console.log(res.data);
+        location.assign("/orderuser");
       })
       .catch((error) => {
         console.log(error);
@@ -165,12 +165,15 @@ export function MenuUser() {
             <div className="orderitem-price">Pris: {total().totalPrice} kr</div>
           </div>
           <button
+            disabled={!localStorage.hasOwnProperty("user")}
             className="orderbutton"
             onClick={() => {
               postOrder();
             }}
           >
-            Checkout Order
+            {!localStorage.hasOwnProperty("user")
+              ? "You have to log in to order!"
+              : "Checkout Order"}
           </button>
         </div>
       </div>
