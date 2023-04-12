@@ -4,12 +4,10 @@ import {
   menu_post,
   menu_delete,
   menu_put,
-  menu_get_one
-
+  menu_get_one,
 } from "../controllers/menuController.js";
-import {  restrictToAdmin } from "../controllers/userController.js";
+import { restrictToAdmin } from "../controllers/userController.js";
 import { verifyToken } from "../verifyToken.js";
-
 
 const menuRoutes = Router();
 menuRoutes.get("/", menu_get);

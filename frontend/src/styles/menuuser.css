@@ -1,0 +1,223 @@
+.container {
+  top: 50px;
+  height: calc(100vh - 80px);
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 12fr 3fr;
+}
+
+.left_side {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  row-gap: 50px;
+  margin: 50px;
+}
+
+.right_side {
+  top: 20px;
+  position: relative;
+  min-height: 80vh;
+  max-height: 83vh;
+  border-radius: 10px;
+  background-color: #043e59;
+  grid-template-rows: auto;
+  margin: 10px;
+  padding-top: 10px;
+  padding-left: 10px;
+  width: 380px;
+}
+
+.artikel-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.info:hover {
+  background-color: rgb(240, 238, 238);
+}
+
+.info {
+  min-width: 180px;
+  min-height: 80px;
+  text-align: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-size: small;
+  border-radius: 20px;
+  box-shadow: 0px 10px 20px #1687d933;
+  margin: 10px;
+}
+
+.images {
+  min-height: 50px;
+  max-height: 120px;
+  min-width: 90px;
+  max-width: 100px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: large;
+}
+
+.icon:active {
+  color: #7b38d8;
+}
+
+.orderbox {
+  background-color: white;
+  width: 95%;
+  min-height: 82%;
+  max-height: 82%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow-y: scroll;
+  justify-content: flex-start;
+  /*display: flex;
+    background-color: white;
+    width: 95%;
+    min-height: 82%;
+    max-height: 82%;
+    align-items: center;
+    justify-content: start;
+    overflow-y: scroll;
+    position: relative;
+    flex-direction: column;
+    gap: 10px;
+    flex-basis: auto;*/
+}
+
+.orderbox .images {
+  min-height: 30px;
+  max-height: 80px;
+  min-width: 60px;
+  max-width: 90px;
+}
+
+.orderbox::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.orderbox::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.orderbox::-webkit-scrollbar-thumb {
+  background-color: #159e43;
+}
+
+.orderbox::-webkit-scrollbar-thumb:hover {
+  background-color: #015513;
+}
+
+.orderbutton {
+  display: block;
+  width: 92%;
+  padding: 10px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: #7b38d8;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.orderbutton:active {
+  color: black;
+}
+
+.orderitem {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  column-gap: 5px;
+  padding: px;
+  text-align: center;
+  font-size: 11px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.numberBtn {
+  display: flex;
+  align-items: center;
+  /* center the contents vertically */
+  justify-content: center;
+  /* center the contents horizontally */
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  width: 15px;
+  /* set a fixed width value */
+  height: 15px;
+  border-radius: 50%;
+  /* set the border radius to 50% to make it circular */
+  box-sizing: border-box;
+  /* include padding and border in the specified width */
+  /* rest of your CSS rules */
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  padding: 9px;
+  /* reduce padding to make the circle area smaller */
+  font-size: 16px;
+  margin: 9px 9px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.numberBtn:active {
+  color: #7b38d8;
+}
+.removeBtn {
+  display: flex;
+  align-items: center;
+  /* center the contents vertically */
+  justify-content: center;
+  /* center the contents horizontally */
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  width: 15px;
+  /* set a fixed width value */
+  height: 15px;
+  border-radius: 50%;
+  /* set the border radius to 50% to make it circular */
+  box-sizing: border-box;
+  /* include padding and border in the specified width */
+  /* rest of your CSS rules */
+  background-color: #aa0404;
+  border: none;
+  color: white;
+  padding: 9px;
+  /* reduce padding to make the circle area smaller */
+  font-size: 16px;
+  margin: 9px 9px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.removeBtn:active {
+  color: #7b38d8;
+}
+
+.totalprice {
+  display: flex;
+  padding: 20px;
+  margin-right: 10px;
+  justify-content: space-around;
+  color: white;
+}
