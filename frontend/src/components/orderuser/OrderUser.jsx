@@ -15,7 +15,7 @@ const OrderUser = () => {
     axios
       .get(`http://localhost:3333/orders/${userId}`, {
         headers: {
-          "auth-token": localStorage.getItem("auth-token"),
+          auth_token: localStorage.getItem("auth-token"),
         },
       })
       .then((res) => {
