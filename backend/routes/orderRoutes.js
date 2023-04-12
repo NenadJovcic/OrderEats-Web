@@ -7,6 +7,7 @@ import {
   orders_getByOrdersId,
   orders_getByUserId,
   orders_put,
+  order_delete_all,
 } from "../controllers/orderController.js";
 import { verifyToken } from "../verifyToken.js";
 import { restrictToAdmin } from "../controllers/userController.js";
@@ -17,6 +18,7 @@ orderRoutes.get("/ready", orders_get_ready);
 orderRoutes.get("/unready", orders_get_unready);
 orderRoutes.post("/", verifyToken, orders_post);
 orderRoutes.delete("/", orders_delete);
+orderRoutes.delete("/deleteall", order_delete_all);
 orderRoutes.get(
   "/orderid/:id",
   verifyToken,

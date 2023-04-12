@@ -21,6 +21,7 @@ const RestaurantOrders = () => {
   }, [update]);
 
   async function handleCheckboxClick(id, ready) {
+    console.log(orders);
     const token = localStorage.getItem("auth-token");
     const config = {
       headers: { auth_token: token },
