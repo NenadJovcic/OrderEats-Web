@@ -5,7 +5,6 @@ import App from "./App";
 import Login from "./components/login/Login.jsx";
 import Signup from "./components/signup/Signup";
 import MenuUser from "./components/menuuser/MenuUser";
-import Cart from "./components/cartView/Cart";
 import "./index.css";
 import {
   createBrowserRouter,
@@ -27,7 +26,6 @@ const router = createBrowserRouter(
       <Route path="/menuadmin" element={<MenuAdmin />} />
       <Route path="/orderres" element={<OrderRes />} />
       <Route path="/orderuser" element={<OrderUser />} />
-      <Route path="/cart/:id?" element={<Cart />} />
     </Route>
   )
 );

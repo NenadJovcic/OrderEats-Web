@@ -10,34 +10,41 @@ const OrderUser = () => {
     user = JSON.parse(user);
     const userId = user._id;
     console.log(userId);
-    
+
     // stop rendering the data after the first time
     // const abortController = new AbortController();
-    axios.get(`http://localhost:3333/orders/${userId}`).then((res) => {
-      // create property for each item in the order before mapping it
-      const flatten = res.data.order
-        .map((element) => ({
-          ...element,
-        }))
-        .reduce((acc, curr) => {
-          return [...acc, ...curr.items];
-        }, []);
-      setData(flatten);
+    axios
+      .get(`http://localhost:3333/orders/${userId}`, {
+        headers: {
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      })
+      .then((res) => {
+        // create property for each item in the order before mapping it
+        const flatten = res.data.order
+          .map((element) => ({
+            ...element,
+          }))
+          .reduce((acc, curr) => {
+            return [...acc, ...curr.items];
+          }, []);
+        setData(flatten);
 
-      // remove duplicates
-      const unique = [...new Set(flatten.map((item) => item._id))].map((id) => {
-        const qty = flatten.find((item) => item._id === id);
-        return {
-          ...qty,
-          qty: flatten.filter((item) => item._id === id).length,
-        };
+        // remove duplicates
+        const unique = [...new Set(flatten.map((item) => item._id))].map(
+          (id) => {
+            const qty = flatten.find((item) => item._id === id);
+            return {
+              ...qty,
+              qty: flatten.filter((item) => item._id === id).length,
+            };
+          }
+        );
+
+        setCartItems(unique);
       });
-
-      setCartItems(unique);
-    });
     // return () => abortController.abort();
   }, []);
-
 
   return (
     <div className="order_container">

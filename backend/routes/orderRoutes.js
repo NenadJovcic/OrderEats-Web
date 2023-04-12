@@ -20,6 +20,6 @@ orderRoutes.get(
   restrictToAdmin,
   orders_getByOrdersId
 );
-orderRoutes.get("/:id", orders_getByUserId);
+orderRoutes.get("/:id", verifyToken, orders_getByUserId);
 
 export default orderRoutes;
