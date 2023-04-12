@@ -137,14 +137,16 @@ export function MenuUser() {
                   <img className="images" src={item.photo} alt={item.name} />
                 </div>
                 <div className="orderitem-name">{item.name}</div>
-                <div className="orderitem-quantity">Antal {item.quantity}</div>
+
+                <div className="orderitem-quantity">Total {item.quantity}</div>
                 <div
                   className="numberBtn"
                   onClick={() => changeNumber("minus", item._id)}
                 >
                   -
                 </div>
-                <div className="orderitem-price">Pris {item.price} kr</div>
+
+                <div className="orderitem-price">Price {item.price} $</div>
                 <div
                   className="numberBtn"
                   onClick={() => changeNumber("plus", item._id)}
@@ -158,11 +160,11 @@ export function MenuUser() {
             ))}
           </div>
           <div className="totalprice">
-            <div className="total">Total:</div>
+            <div className="total">Summary:</div>
             <div className="orderitem-price">
-              Antal: {total().totalQuantity}
+              Quantity: {total().totalQuantity}
             </div>
-            <div className="orderitem-price">Pris: {total().totalPrice} kr</div>
+            <div className="orderitem-price">Price: {total().totalPrice} $</div>
           </div>
           <button
             disabled={!localStorage.hasOwnProperty("user")}
