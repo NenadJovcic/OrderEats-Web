@@ -12,7 +12,7 @@ import { restrictToAdmin } from "../controllers/userController.js";
 const orderRoutes = Router();
 
 orderRoutes.get("/", orders_get);
-orderRoutes.post("/", orders_post);
+orderRoutes.post("/", verifyToken, orders_post);
 orderRoutes.delete("/", orders_delete);
 orderRoutes.get(
   "/orderid/:id",
