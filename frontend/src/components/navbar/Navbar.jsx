@@ -1,18 +1,22 @@
 import "../../styles/navbar.css";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 
 const Navbar = () => {
-  
+
 
   function handleLogout() {
     localStorage.removeItem("auth-token");
     location.assign('/login')
 
-  }
   
+  }
+
+
+
+
   return (
-    
     <>
       <nav className="nav-bar">
         <div className="nav-half">
@@ -31,7 +35,7 @@ const Navbar = () => {
                 Admin panel
               </NavLink>
               <NavLink className="nav-button" to="/orderuser">
-                Order User
+                Order user
               </NavLink>
               <button className="nav-button" onClick={handleLogout}>
                 Logout
@@ -54,3 +58,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+//how to import user collection from mongodb 
