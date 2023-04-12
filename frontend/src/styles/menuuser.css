@@ -40,6 +40,7 @@
 
 .info:hover {
   background-color: rgb(240, 238, 238);
+  cursor: pointer;
 }
 
 .info {
@@ -221,3 +222,4 @@
   justify-content: space-around;
   color: white;
 }
+
