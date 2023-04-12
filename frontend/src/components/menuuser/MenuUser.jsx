@@ -56,7 +56,7 @@ export function MenuUser() {
 
   // remove completly item from orderbox with "x" via filter method
   function removeBtn(id) {
-    let newOrderbox = orderbox.filter((item) => item.id !== id);
+    let newOrderbox = orderbox.filter((item) => item._id !== id);
     setOrderbox(newOrderbox);
   }
 
@@ -111,7 +111,7 @@ export function MenuUser() {
                   <div className="artikel-img">
                     <img className="images" src={food.photo} alt={food.name} />
                   </div>
-                  <div className="info">
+                  <div onClick={() => addToOrder(food._id)} className="info">
                     <h2>{food.name}</h2>
                     <h2>
                       {food.price}
@@ -119,7 +119,6 @@ export function MenuUser() {
                     </h2>
                     <div
                       className="addToOrder"
-                      onClick={() => addToOrder(food._id)}
                     >
                       +
                     </div>
