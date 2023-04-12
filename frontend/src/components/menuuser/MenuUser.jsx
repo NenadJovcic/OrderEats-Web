@@ -137,6 +137,7 @@ export function MenuUser() {
                   <img className="images" src={item.photo} alt={item.name} />
                 </div>
                 <div className="orderitem-name">{item.name}</div>
+
                 <div className="orderitem-quantity">Total {item.quantity}</div>
                 <div
                   className="numberBtn"
@@ -144,6 +145,7 @@ export function MenuUser() {
                 >
                   -
                 </div>
+
                 <div className="orderitem-price">Price {item.price} $</div>
                 <div
                   className="numberBtn"
