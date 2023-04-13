@@ -24,18 +24,11 @@ const Navbar = () => {
       <nav className="nav-bar">
         <div className="nav-half">
           <h1 className="nav-logo">Food Delivery</h1>
-          {user && user.isAdmin ? (
-            <NavLink className="nav-button" to="/menuadmin">
-              Menu
-            </NavLink>
-          ) : (
-            <NavLink className="nav-button" to="/">
-              Menu
-            </NavLink>
-          )}
         </div>
         <div className="nav-half">
-          {localStorage.getItem("auth-token") ? (
+    
+
+          {user && user.isAdmin === true && (
             <>
               <NavLink className="nav-button" to="/orderres">
                 Income Orders
@@ -46,29 +39,27 @@ const Navbar = () => {
               <NavLink className="nav-button" to="/orderuser">
                 Order user
               </NavLink>
-              <button className="nav-button" onClick={handleLogout}>
-                Logout
-              </button>
-              {user.isRestaurant ? (
-                <NavLink className="nav-button" to="/orderres">
-                  Order
-                </NavLink>
-              ) : (
-                <NavLink className="nav-button" to="/orderuser">
-                  Order
-                </NavLink>
-              )}
             </>
-          ) : (
+          )}
+          {!user ? (
             <>
-              <NavLink className="nav-button" to="/login">
+        <NavLink className="nav-button" to="/login">
                 Login
               </NavLink>
               <NavLink className="nav-button" to="/signup">
-                Signup
+                Sign up
               </NavLink>
             </>
-          )}
+          ) : (
+            <>
+             <button className="nav-button" onClick={handleLogout}>
+                Logout
+              </button>
+              <NavLink className="nav-button" to="/orderuser">
+                Cart
+              </NavLink>
+            </>
+          )} 
         </div>
       </nav>
     </>
