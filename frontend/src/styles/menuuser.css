@@ -222,4 +222,35 @@
   justify-content: space-around;
   color: white;
 }
+@media only screen and (max-width: 768px) {
+  .container {
+    display: flex;
+    position: unset;
+  }
+  .right_side {
+    margin-right: 20px;
+    margin: 0px;
+  }
+  .left_side {
+    row-gap: 0px;
+    display: block;
+    margin: 12px 8px;
+  }
+  .orderbox {
+    width: 97%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
+  .nav-bar .nav-half .nav-button {
+    font-size: 12px;
+  }
+  .nav-bar .nav-half .nav-logo {
+    font-size: 22px;
+  }
+}
