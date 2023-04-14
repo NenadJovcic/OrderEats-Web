@@ -37,7 +37,7 @@ export const login_post = async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (passwordMatch) {
       const token = jwt.sign(
-        { _id: user._id, admin: user.isAdmin },
+        { _id: user._id, admin: user.isAdmin, resOwner: user.isRestaurant },
         process.env.TOKEN_SECRET || "secret",
         { expiresIn: "1d" }
       );
