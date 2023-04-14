@@ -1,20 +1,49 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
+
 import "../../styles/menuadmin.css";
 
 const MenuAdmin = () => {
   const [menu, setMenu] = useState([]);
   const [currentItem, setCurrentItem] = useState({});
   const [newItem, setNewItem] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+
+
+
+
 
   useEffect(() => {
-    const fetchdata = async () => {
-      await axios.get("http://localhost:3333/menu").then((res) => {
-        setMenu(res.data);
-      });
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+      location.assign("/login");
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    console.log(decodedToken)
+    if (!decodedToken.admin) {
+      alert("Access denied: You must be an admin to view this page.");
+      location.assign("/");
+      return;
+
+    }
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3333/menu");
+        setMenu(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
     };
-    fetchdata();
-  });
+    fetchData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   function handleMenuItem(item) {
     setCurrentItem(item);
@@ -88,32 +117,32 @@ const MenuAdmin = () => {
         <div className="menuadmin-menu">
           {menu
             ? menu.map((item) => {
-                return (
-                  <div
-                    key={item._id}
-                    onClick={() => {
-                      handleMenuItem(item);
-                    }}
-                    className="menuadmin-menu-item"
-                    style={{
-                      outline:
-                        currentItem._id === item._id
-                          ? "3px solid #015513"
-                          : null,
-                    }}
-                  >
-                    <img
-                      className="menuadmin-menu-item-image"
-                      src={item.photo}
-                      alt="test"
-                    />
-                    <div>
-                      <h3>Name: {item.name}</h3>
-                      <h4>Price: {item.price}</h4>
-                    </div>
+              return (
+                <div
+                  key={item._id}
+                  onClick={() => {
+                    handleMenuItem(item);
+                  }}
+                  className="menuadmin-menu-item"
+                  style={{
+                    outline:
+                      currentItem._id === item._id
+                        ? "3px solid #015513"
+                        : null,
+                  }}
+                >
+                  <img
+                    className="menuadmin-menu-item-image"
+                    src={item.photo}
+                    alt="test"
+                  />
+                  <div>
+                    <h3>Name: {item.name}</h3>
+                    <h4>Price: {item.price}</h4>
                   </div>
-                );
-              })
+                </div>
+              );
+            })
             : null}
         </div>
         <div className="menuadmin-editor-column">

@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/orderres.css";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 const RestaurantOrders = () => {
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [orders, setOrders] = useState([]);
   const [update, setUpdate] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const token = localStorage.getItem("auth-token");
+    if (!token) {
+      location.assign("/login");
+      return;
+    }
+    const decodedToken = jwtDecode(token);
+    console.log(decodedToken);
+    if (!decodedToken.resOwner) {
+      alert(
+        "Access denied: You must be an Restaurant Owner to view this page."
+      );
+      location.assign("/");
+      return;
+    }
     const fetchData = async () => {
       await axios.get("http://localhost:3333/orders/ready").then((res) => {
         setSelectedOrders(res.data.orders);
+        setIsLoading(false);
       });
       await axios.get("http://localhost:3333/orders/unready").then((res) => {
         setOrders(res.data.orders);
+        setIsLoading(false);
       });
     };
     fetchData();
   }, [update]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   async function handleCheckboxClick(id, ready) {
     const token = localStorage.getItem("auth-token");
@@ -45,7 +66,6 @@ const RestaurantOrders = () => {
       setUpdate(id);
     }
   }
-
   async function handleAccepted(id, accepted) {
     const token = localStorage.getItem("auth-token");
     const config = {
@@ -92,7 +112,19 @@ const RestaurantOrders = () => {
     }
   }
 
-  const Order = ({ items, user, accepted, _id, ready }) => {
+  const Order = ({ items, user, total, _id, ready }) => {
+    const itemQuantities = {};
+    let orderTotal = 0;
+
+    items.forEach((item) => {
+      if (item.name in itemQuantities) {
+        itemQuantities[item.name] += 1;
+      } else {
+        itemQuantities[item.name] = 1;
+      }
+      orderTotal += item.price;
+    });
+
     return (
       <div className="order" key={_id}>
         {!accepted && !ready ? (
