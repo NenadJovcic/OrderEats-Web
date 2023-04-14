@@ -112,7 +112,7 @@ const RestaurantOrders = () => {
     }
   }
 
-  const Order = ({ items, user, total, _id, ready }) => {
+  const Order = ({ items, user, accepted, _id, ready }) => {
     const itemQuantities = {};
     let orderTotal = 0;
 
