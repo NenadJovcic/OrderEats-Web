@@ -11,7 +11,7 @@ export const test_get = async (req, res) => {
 
 //? Create new user and hash password before saving to database
 export const signup_post = async (req, res) => {
-  const { email, password, userName, isAdmin } = req.body;
+  const { email, password, userName, isAdmin, isRestaurant } = req.body;
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
   const user = new User({
@@ -19,6 +19,7 @@ export const signup_post = async (req, res) => {
     password: hashedPassword,
     userName: userName,
     isAdmin: isAdmin,
+    isRestaurant: isRestaurant,
   });
   try {
     const savedUser = await user.save();

@@ -16,9 +16,6 @@ const Navbar = () => {
     location.assign("/login");
   }
 
-
-
-
   return (
     <>
       <nav className="nav-bar">
@@ -68,5 +65,4 @@ const Navbar = () => {
 
 export default Navbar;
 
-
-//how to import user collection from mongodb 
+//how to import user collection from mongodb

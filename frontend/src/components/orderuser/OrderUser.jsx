@@ -55,7 +55,9 @@ const OrderUser = () => {
             <p>{item.name}</p>
             <p>${item.price}</p>
             <p>Qty: {item.qty}</p>
-            <p>Total: ${item.qty * item.price} </p>
+            <p>
+              Total: {item.accpted ? "time" : null} ${item.qty * item.price}{" "}
+            </p>
           </li>
         ))}
 

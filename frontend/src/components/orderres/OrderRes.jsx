@@ -16,22 +16,22 @@ const RestaurantOrders = () => {
       return;
     }
     const decodedToken = jwtDecode(token);
-    console.log(decodedToken)
+    console.log(decodedToken);
     if (!decodedToken.resOwner) {
-      alert("Access denied: You must be an Restaurant Owner to view this page.");
+      alert(
+        "Access denied: You must be an Restaurant Owner to view this page."
+      );
       location.assign("/");
       return;
-
     }
     const fetchData = async () => {
       await axios.get("http://localhost:3333/orders/ready").then((res) => {
         setSelectedOrders(res.data.orders);
-        setIsLoading(false)
+        setIsLoading(false);
       });
       await axios.get("http://localhost:3333/orders/unready").then((res) => {
         setOrders(res.data.orders);
-        setIsLoading(false)
-
+        setIsLoading(false);
       });
     };
     fetchData();
@@ -42,7 +42,6 @@ const RestaurantOrders = () => {
   }
 
   async function handleCheckboxClick(id, ready) {
-    console.log(orders);
     const token = localStorage.getItem("auth-token");
     const config = {
       headers: { auth_token: token },
@@ -67,8 +66,53 @@ const RestaurantOrders = () => {
       setUpdate(id);
     }
   }
+  async function handleAccepted(id, accepted) {
+    const token = localStorage.getItem("auth-token");
+    const config = {
+      headers: { auth_token: token },
+    };
+    await axios
+      .put(
+        `http://localhost:3333/orders/${id}`,
+        {
+          accepted: !accepted,
+        },
+        config
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    if (update === id) {
+      setUpdate(1);
+    } else {
+      setUpdate(id);
+    }
+  }
 
-  const Order = ({ items, user, total, _id, ready }) => {
+  async function handleDeleteOrder(id) {
+    const token = localStorage.getItem("auth-token");
+    const config = {
+      headers: { auth_token: token },
+    };
+    await axios
+      .delete(`http://localhost:3333/orders/delete/${id}`, config)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    if (update === id) {
+      setUpdate(1);
+    } else {
+      setUpdate(id);
+    }
+  }
+
+  const Order = ({ items, user, accepted, _id, ready }) => {
     const itemQuantities = {};
     let orderTotal = 0;
 
@@ -83,34 +127,50 @@ const RestaurantOrders = () => {
 
     return (
       <div className="order" key={_id}>
-        <input
-          type="checkbox"
-          checked={ready}
-          onChange={() => handleCheckboxClick(_id, ready)}
-        />
+        {!accepted && !ready ? (
+          <>
+            <h3>Accept?</h3>
+            <button
+              onClick={() => {
+                handleAccepted(_id, ready);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              onClick={() => {
+                handleDeleteOrder(_id);
+              }}
+            >
+              NOOO!!
+            </button>
+          </>
+        ) : (
+          <input
+            type="checkbox"
+            checked={ready}
+            onChange={() => handleCheckboxClick(_id, ready)}
+          />
+        )}
+
         {items &&
-          Object.entries(itemQuantities).map(([name, quantity]) => {
+          items.map((item, index) => {
             const sum = items.reduce(
-              (accumulator, currentValue) =>
-                currentValue.name === name
-                  ? accumulator + currentValue.price
-                  : accumulator,
+              (accumulator, currentValue) => accumulator + currentValue.price,
               0
             );
             return (
-              <div key={name}>
-                <h4>
-                  {name} x {quantity}
-                </h4>
-              </div>
+              <>
+                <h3 key={index}>{item.name}</h3>
+                {index === items.length - 1 ? <div>Total: {sum}</div> : null}
+              </>
             );
           })}
-        <h3>Order Total Price: {orderTotal}</h3> {/* display order total */}
         <p>{user.userName}</p>
         {ready ? (
           <button
             onClick={() => {
-              handleCheckboxClick(_id, ready);
+              handleDeleteOrder(_id, ready);
             }}
           >
             Customer Picked it Up
@@ -119,8 +179,6 @@ const RestaurantOrders = () => {
       </div>
     );
   };
-
-
 
   const OrderList = ({ orders }) => (
     <div className="order-list">
