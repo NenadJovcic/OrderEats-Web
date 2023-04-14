@@ -16,18 +16,16 @@ const Navbar = () => {
     location.assign("/login");
   }
 
-
-
-
   return (
     <>
       <nav className="nav-bar">
         <div className="nav-half">
           <h1 className="nav-logo">Food Delivery</h1>
-        </div>
-        <div className="nav-half">
-    
-
+          <NavLink className="nav-button" to="/">
+            Menu
+          </NavLink>
+            </div>
+            <div className="nav-half">
           {user && user.isAdmin === true && (
             <>
               <NavLink className="nav-button" to="/orderres">
@@ -43,7 +41,7 @@ const Navbar = () => {
           )}
           {!user ? (
             <>
-        <NavLink className="nav-button" to="/login">
+              <NavLink className="nav-button" to="/login">
                 Login
               </NavLink>
               <NavLink className="nav-button" to="/signup">
@@ -52,14 +50,14 @@ const Navbar = () => {
             </>
           ) : (
             <>
-             <button className="nav-button" onClick={handleLogout}>
+              <button className="nav-button" onClick={handleLogout}>
                 Logout
               </button>
               <NavLink className="nav-button" to="/orderuser">
                 Cart
               </NavLink>
             </>
-          )} 
+          )}
         </div>
       </nav>
     </>
@@ -68,5 +66,4 @@ const Navbar = () => {
 
 export default Navbar;
 
-
-//how to import user collection from mongodb 
+//how to import user collection from mongodb
