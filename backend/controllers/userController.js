@@ -42,7 +42,6 @@ export const login_post = async (req, res) => {
         process.env.TOKEN_SECRET || "secret",
         { expiresIn: "1d" }
       );
-      // console.log(req.headers.authorization.split(" ")[1]);
       res.status(201).json({ token: token, user: user });
     } else {
       res.status(400).json({ message: "Invalid email or password" });
