@@ -1,0 +1,8 @@
+.orderuser-flex {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-width: 99vw;
+  gap: 2vw;
+}
